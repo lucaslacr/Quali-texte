@@ -47,8 +47,6 @@ if($nombreMoyenDeMotsParParagraphe > 135) {
 $sectionGeneral = "<h3>Stat général</h3>" . "<p> Nombre de caractères : " . $nombreDeCaracteres . "<br> Nombre de mots : " . $nombreDeMots . "<br>Temps de lecture estimé : " . $tempsLecture . "<br> Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de paragraphes : " . $nombreDeParagraphes . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
 
 
-
-
 // Fonction pour compter et relever les occurrences des mots spécifiés 
 $sectionverbeterne = "<h3>Verbe terne</h3>";
 function compterEtReleverMots($texte, $mots_a_relever) {
@@ -71,7 +69,7 @@ function compterEtReleverMots($texte, $mots_a_relever) {
 }
 
 // Mots à relever
-$mots_a_relever = array("faire", "fait", "fais", "vouloir",  "voulu", "est", "aller", "dire", "dis", "dit", "mettre", "mis", "met", "fini");
+$mots_a_relever = array("faire", "fait", "fais", "vouloir",  "voulu", "est", "aller", "dire", "dis ", "dit ", "mettre", "mis", "met", "fini");
 
 // Appeler la fonction pour compter et relever les mots spécifiés
 $occurrences_des_mots = compterEtReleverMots($texteAnalyser, $mots_a_relever);
@@ -116,5 +114,49 @@ foreach ($nombreDeMotsParPhrase as $index => $nombreDeMots) {
     }
    
 }
-$affichage = $sectionGeneral . $sectionverbeterne . $sectionMotParPhrases;   
+
+function motsFrequents($texte, $nombre_mots_a_recuperer = 5) {
+    // Liste des mots à exclure
+    $mots_a_exclure = array("ont", "leur", "nos", "mais", "devant", "encore", "vers", "leurs", "qu'il", "le", "n'a", "la", "de", "dans", "se", "qu", "en", "re", "sur", "au", "on", "cette", "aux", "ce", "ces", "ses", "sa", "si", "ne", "mon", "ma", "c'est", "à", "son", "que", "l", "où", "c", "m", "t", "s", "là", "sans", "e", "par", "que", "je", "tu", "il", "ils", "elles", "elle", "vous", "es", "tes", "tout", "toutes","toute", "tous", "nous", "qui", "un", "est", "une", "a", "pour", "les", "des", "ou", "aussi", "plus", "comme", "avec", "d", "et", "du", "me", "lui", "entre", "pas", "mes", "sont"); // Ajoutez d'autres mots à exclure ici si nécessaire
+
+    // Convertir le texte en minuscules pour une recherche insensible à la casse
+    $texte_minuscules = strtolower($texte);
+
+    // Supprimer les caractères spéciaux et découper le texte en mots
+    $pattern = '/[^\p{L}\p{N}\']+|\'(?!\w)|(?<!\w)\'/u';
+    $mots = preg_split($pattern, $texte_minuscules, -1, PREG_SPLIT_NO_EMPTY);
+
+    // Exclure les mots spécifiés de la liste des mots
+    $mots_sans_exclusion = array_diff($mots, $mots_a_exclure);
+
+    // Compter la fréquence d'apparition de chaque mot
+    $frequences = array_count_values($mots_sans_exclusion);
+
+    // Trier les mots par ordre décroissant de leur fréquence
+    arsort($frequences);
+
+    // Récupérer les mots les plus fréquents
+    $mots_frequents = array_slice($frequences, 0, $nombre_mots_a_recuperer, true);
+
+    return $mots_frequents;
+}
+
+// Appeler la fonction pour récupérer les mots fréquemment utilisés
+$nombre_mots_a_recuperer = 6; // Vous pouvez ajuster ce nombre selon vos besoins
+$mots_frequents = motsFrequents($texteAnalyser, $nombre_mots_a_recuperer);
+
+// Afficher les résultats
+$sectionsemantique = "";
+foreach ($mots_frequents as $mot => $frequence) {
+    $sectionsemantique = $sectionsemantique . $mot . " : (" . $frequence . ") <br>";
+}
+
+$sectionsemantique = "<h3>Analyse sémantique</h3><p>" . $sectionsemantique ."</p>";
+
+
+
+
+
+
+$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $sectionMotParPhrases;   
 ?>

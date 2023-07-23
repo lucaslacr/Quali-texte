@@ -157,6 +157,7 @@ p {
     }
     .resultat {
         min-width: 300px;
+        width: 100%;
         background-color: var(--surface-blanc);
         padding: 24px;
         border-radius: var(--bordure-arrondie);

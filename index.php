@@ -12,6 +12,7 @@ if (isset($_POST['texte-a-analyser'])) {
 
 <head>
     <title>Quali Texte, analyse de texte pour orienté UX Writing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="elements/aspect.css" rel="stylesheet">
 </head>
 
@@ -31,16 +32,13 @@ if (isset($_POST['texte-a-analyser'])) {
             <div class="conteneur-analyse">
                 <form action="#" method="post">
                     <button type="submit">Analyser le texte</button>
-                    <textarea maxlength="5000" minlength="5" rows="24" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser">
-                    <?php
+                    <textarea maxlength="5000" minlength="5" rows="24" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser"><?php
                     if (isset($_POST['texte-a-analyser'])) {
                         echo $texteAnalyser;
                     } else {
-                        $affichage = "Entrez ici le texte à analyser";
+                        echo "Entrez ici le texte à analyser";
                     }
-                    ?>
-
-                    </textarea>
+                    ?></textarea>
                 </form>
                 <section class="resultat">
                     <?php echo $affichage ?>
