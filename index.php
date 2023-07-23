@@ -31,7 +31,7 @@ if (isset($_POST['texte-a-analyser'])) {
             <div class="conteneur-analyse">
                 <form action="#" method="post">
                     <button type="submit">Analyser le texte</button>
-                    <textarea maxlength="2500" minlength="5" rows="24" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser">
+                    <textarea maxlength="5000" minlength="5" rows="24" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser">
                     <?php
                     if (isset($_POST['texte-a-analyser'])) {
                         echo $texteAnalyser;
