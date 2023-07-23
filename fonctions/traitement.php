@@ -16,21 +16,35 @@ $nombreMoyenDeMotsParPhrase = round($nombreMoyenDeMotsParPhrase, 2);
 if($nombreMoyenDeMotsParPhrase > 20) {
     $nombreMoyenDeMotsParPhrase = "<span class='rouge'>" . $nombreMoyenDeMotsParPhrase . "</span>";
 } else {
-
+   
 }
+
+// vitesse de lecture 
+$tempsLecture = $nombreDeMots / 300;
+$minutes_decimal = $tempsLecture;
+
+// Séparer la partie entière des décimales
+$partie_entiere = floor($minutes_decimal);
+$decimales = $minutes_decimal - $partie_entiere;
+
+// Convertir les décimales en secondes
+$secondes = $decimales * 60;
+
+// Afficher le résultat
+$tempsLecture = $partie_entiere . "min et " . floor($secondes) . "s";
+
 
 // Compter le nombre de paragraphes
 $nombreDeParagraphes = preg_match_all('/^\s*$/m', $texteAnalyser, $matches) + 1;
 $nombreMoyenDeMotsParParagraphe = $nombreDeMots / $nombreDeParagraphes;
 $nombreMoyenDeMotsParParagraphe  = round($nombreMoyenDeMotsParParagraphe, 2);
-if($nombreMoyenDeMotsParParagraphe > 150) {
+if($nombreMoyenDeMotsParParagraphe > 135) {
     $nombreMoyenDeMotsParParagraphe = "<span class='rouge'>" . $nombreMoyenDeMotsParParagraphe . "</span>";
 } else {
-   echo "non";
 }
 
 // Afficher les résultats
-$sectionGeneral = "<h3>Stat général</h3>" . "<p> Nombre de caractères : " . $nombreDeCaracteres . "<br> Nombre de mots : " . $nombreDeMots . "<br> Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de paragraphes : " . $nombreDeParagraphes . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
+$sectionGeneral = "<h3>Stat général</h3>" . "<p> Nombre de caractères : " . $nombreDeCaracteres . "<br> Nombre de mots : " . $nombreDeMots . "<br>Temps de lecture estimé : " . $tempsLecture . "<br> Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de paragraphes : " . $nombreDeParagraphes . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
 
 
 
