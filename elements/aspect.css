@@ -21,15 +21,45 @@ time, mark, audio, video {
 
 :root {
     --surface-blanc: #fff; 
-    --surface-creme: #f2e2d4;
+    --surface-creme: #f1f3f6;
     --bordure-arrondie: 8px;
-
+    --ligne-claire: #27273a;
+    --texte-titre: #27273a;
+    --texte-paragraphe: #333344;
+    --primaire: #005eb8;
 }
 
 body, input, button, textarea {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Lunasima-Regular', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: medium;
+    color: var(--texte-paragraphe);
 }
+
+* {
+    box-sizing: border-box;
+}
+
+input, button, textarea {
+    border: 2px solid var(--ligne-claire);
+    border-radius: var(--bordure-arrondie);
+    display: block;
+    margin: 0 0 8px;
+    padding: 15px;
+    width: 100%;
+}
+
+button {
+    background-color: var(--primaire);
+    color: #fff;
+    border: 2px solid var(--ligne-claire);
+    border-radius:  var(--bordure-arrondie);
+    margin-left: auto;
+    cursor: pointer;
+    transition: 0.3s ease;
+    padding: 8px 22px;
+    width: auto;
+}
+
  /* partie région */
 .conteneur {
     max-width: 1200px;
@@ -71,17 +101,30 @@ form {
 textarea {
     width: 100%;
     max-width: 1200px;
+    line-height: 1.5;
 }
 
 /* Partie texte */
 h1 {
     font-size: 32px;
+    color: var(--texte-titre);
+    font-family: "Epilogue-Bold";
 }
 
 p {
     max-width: 700px;
     line-height: 150%;
 }
+
+@font-face {
+    font-family: "Lunasima-Regular";
+    src: url("Lunasima-Regular.woff2") format('woff2');
+  }
+  @font-face {
+    font-family: "Epilogue-Bold";
+    src: url("Epilogue-Bold.woff2") format('woff2');
+  }
+
 
 
 /* Partie responsive */

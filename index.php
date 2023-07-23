@@ -1,3 +1,12 @@
+<?php
+if (isset($_POST['texte-a-analyser'])) {
+    $affichage = "Les résultats";
+    $texteAnalyser = $_POST['texte-a-analyser'];
+    include 'fonctions/traitement.php';
+} else {
+    $affichage = " Les résultats, s'afficherons ici";
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -19,16 +28,22 @@
     </section>
     <main>
         <div class="conteneur">
-
-
             <div class="conteneur-analyse">
-                <form action="/fonctions/traitement.php" method="post">
+                <form action="#" method="post">
                     <button type="submit">Analyser le texte</button>
-                    <textarea maxlength="2500" minlength="5" id="" aria-label="Entrez le texte à analyser"
-                        id="texte-a-analyser" name="texte-a-analyser"></textarea>
+                    <textarea maxlength="2500" minlength="5" rows="24" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser">
+                    <?php
+                    if (isset($_POST['texte-a-analyser'])) {
+                        echo $texteAnalyser;
+                    } else {
+                        $affichage = "Entrez ici le texte à analyser";
+                    }
+                    ?>
+
+                    </textarea>
                 </form>
                 <section class="resultat">
-                    Les résultats, s'afficherons ici
+                    <?php echo $affichage ?>
                 </section>
             </div>
         </div>
