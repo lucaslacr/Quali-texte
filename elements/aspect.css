@@ -27,6 +27,7 @@ time, mark, audio, video {
     --texte-titre: #27273a;
     --texte-paragraphe: #333344;
     --texte-rouge: #b80047;
+    --texte-vert:#02694c;
     --primaire: #005eb8;
 }
 
@@ -56,7 +57,6 @@ button {
     border-radius:  var(--bordure-arrondie);
     margin-left: auto;
     cursor: pointer;
-    transition: 0.3s ease;
     padding: 8px 22px;
     width: auto;
 }
@@ -71,7 +71,7 @@ button {
 
 .banniere {
     background-color: var(--surface-creme);
-    padding: 24px 24px 80px 16px;
+    padding: 40px 24px 80px 16px;
 }
 .conteneur-analyse {
     max-width: 1200px;
@@ -133,6 +133,9 @@ p {
 .rouge {
     color: var(--texte-rouge);
 }
+.vert {
+    color: #02694c;
+}
 
 @font-face {
     font-family: "Lunasima-Regular";
@@ -161,6 +164,9 @@ p {
         background-color: var(--surface-blanc);
         padding: 24px;
         border-radius: var(--bordure-arrondie);
+    }
+    button {
+        width: 100%;
     }
    
 }

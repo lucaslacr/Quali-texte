@@ -16,7 +16,7 @@ $nombreMoyenDeMotsParPhrase = round($nombreMoyenDeMotsParPhrase, 2);
 if($nombreMoyenDeMotsParPhrase > 20) {
     $nombreMoyenDeMotsParPhrase = "<span class='rouge'>" . $nombreMoyenDeMotsParPhrase . "</span>";
 } else {
-   
+    $nombreMoyenDeMotsParPhrase = "<span class='vert'>" . $nombreMoyenDeMotsParPhrase . "</span>";
 }
 
 // vitesse de lecture 
@@ -38,9 +38,10 @@ $tempsLecture = $partie_entiere . "min et " . floor($secondes) . "s";
 $nombreDeParagraphes = preg_match_all('/^\s*$/m', $texteAnalyser, $matches) + 1;
 $nombreMoyenDeMotsParParagraphe = $nombreDeMots / $nombreDeParagraphes;
 $nombreMoyenDeMotsParParagraphe  = round($nombreMoyenDeMotsParParagraphe, 2);
-if($nombreMoyenDeMotsParParagraphe > 135) {
+if($nombreMoyenDeMotsParParagraphe > 120) {
     $nombreMoyenDeMotsParParagraphe = "<span class='rouge'>" . $nombreMoyenDeMotsParParagraphe . "</span>";
 } else {
+    $nombreMoyenDeMotsParParagraphe = "<span class='vert'>" . $nombreMoyenDeMotsParParagraphe . "</span>";
 }
 
 // Afficher les résultats
@@ -48,7 +49,7 @@ $sectionGeneral = "<h3>Stat général</h3>" . "<p> Nombre de caractères : " . $
 
 
 // Fonction pour compter et relever les occurrences des mots spécifiés 
-$sectionverbeterne = "<h3>Verbe terne</h3>";
+$sectionverbeterne = "<h3>Verbes ternes</h3>";
 function compterEtReleverMots($texte, $mots_a_relever) {
     // Convertir le texte en minuscules pour une recherche insensible à la casse
     $texte_minuscules = strtolower($texte);
@@ -117,7 +118,7 @@ foreach ($nombreDeMotsParPhrase as $index => $nombreDeMots) {
 
 function motsFrequents($texte, $nombre_mots_a_recuperer = 5) {
     // Liste des mots à exclure
-    $mots_a_exclure = array("ont", "leur", "nos", "mais", "devant", "encore", "vers", "leurs", "qu'il", "le", "n'a", "la", "de", "dans", "se", "qu", "en", "re", "sur", "au", "on", "cette", "aux", "ce", "ces", "ses", "sa", "si", "ne", "mon", "ma", "c'est", "à", "son", "que", "l", "où", "c", "m", "t", "s", "là", "sans", "e", "par", "que", "je", "tu", "il", "ils", "elles", "elle", "vous", "es", "tes", "tout", "toutes","toute", "tous", "nous", "qui", "un", "est", "une", "a", "pour", "les", "des", "ou", "aussi", "plus", "comme", "avec", "d", "et", "du", "me", "lui", "entre", "pas", "mes", "sont"); // Ajoutez d'autres mots à exclure ici si nécessaire
+    $mots_a_exclure = array("ont", "leur", "nos", "y", "mais", "pourquoi", "devant", "encore", "vers", "leurs", "qu'il", "le", "n'a", "la", "de", "dans", "se", "qu", "en", "re", "sur", "au", "on", "cette", "aux", "ce", "ces", "ses", "sa", "si", "ne", "mon", "ma", "c'est", "à", "son", "que", "l", "où", "c", "m", "t", "s", "là", "sans", "e", "par", "que", "je", "tu", "il", "ils", "elles", "elle", "vous", "es", "tes", "tout", "toutes","toute", "tous", "nous", "qui", "un", "est", "une", "a", "pour", "les", "des", "ou", "aussi", "plus", "comme", "avec", "d", "et", "du", "me", "lui", "entre", "pas", "mes", "sont"); // Ajoutez d'autres mots à exclure ici si nécessaire
 
     // Convertir le texte en minuscules pour une recherche insensible à la casse
     $texte_minuscules = strtolower($texte);
@@ -154,9 +155,56 @@ foreach ($mots_frequents as $mot => $frequence) {
 $sectionsemantique = "<h3>Analyse sémantique</h3><p>" . $sectionsemantique ."</p>";
 
 
+// Fonction pour compter et nommer les phrases passives
+function compterEtNommerPhrasesPassives($texte) {
+    // Expressions régulières pour détecter certaines formes de la voix passive
+    $patterns = array(
+        '/(\b\w+\s+\b(?:a été|a éte|avait été|a été|sont été|sera|seront)\b.*?\b\w+\b)/i', // Formes du verbe être + participe passé
+    );
+
+    // Initialiser un tableau pour stocker les phrases passives
+    $phrases_passives = array();
+
+    // Découper le texte en phrases
+    $phrases = preg_split('/(?<=[.?!])\s+/', $texte, -1, PREG_SPLIT_NO_EMPTY);
+
+    // Parcourir les phrases et détecter les phrases passives
+    foreach ($phrases as $phrase) {
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $phrase)) {
+                $phrases_passives[] = $phrase;
+                break;
+            }
+        }
+    }
+
+    // Compter le nombre de phrases passives
+    $nombre_phrases_passives = count($phrases_passives);
+
+    // Retourner le nombre de phrases passives et les phrases elles-mêmes
+    return array(
+        'nombre_phrases_passives' => $nombre_phrases_passives,
+        'phrases_passives' => $phrases_passives
+    );
+}
+
+// Appeler la fonction pour compter et nommer les phrases passives
+$sectionpasive = compterEtNommerPhrasesPassives($texteAnalyser);
+$sectionvoix = "";
+// Afficher les résultats
 
 
+if ($sectionpasive['nombre_phrases_passives'] < 1) {
+    $sectionvoix = "<p class='vert' >Il ne semble pas y avoir de phrases à la voix passive</p>";
+} else {
+    $sectionvoix = "Nombre de phrases passives : " . $sectionpasive['nombre_phrases_passives'] . "<br>" . "Phrases passives : <br>";
+    foreach ($sectionpasive['phrases_passives'] as $phrase) {
+        $sectionvoix = $sectionvoix . $phrase . "<br>";
+    }
+    $sectionvoix = "<p class='rouge' >" . $sectionvoix . "</p>";
+};
+$sectionvoix = "<h3>Détection voix passive</h3>" . $sectionvoix ;
 
 
-$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $sectionMotParPhrases;   
+$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $sectionvoix . $sectionMotParPhrases;   
 ?>
