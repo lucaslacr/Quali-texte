@@ -10,14 +10,15 @@ C'est davantage un outil pour l'UX Writer ou pour le chargé de contenu qu'une s
 
 ## Fonctionnalités opérationnelles (mais bien perfectible)
 - Nombre de caractères
-- Nombre de mots : 40
+- Nombre de mots
 - Temps de lecture estimé
 - Nombre moyen de mots par phrase 
 - Nombre de paragraphes 
 - Nombre de mots moyens par paragraphe
 - Analyse sémantique
-- Verbes ternes
-- Détection voix passive
+- Verbes ternes (basic)
+- Détection des dates notées en Abrégé (20/06/2023 pour 20 juin 2023)
+- Détection voix passive (très basic)
 - Longueur de chaque phrase
 
 ## Fonctionnalités à venir
@@ -25,6 +26,7 @@ C'est davantage un outil pour l'UX Writer ou pour le chargé de contenu qu'une s
 - Détection des abréviations
 - Détection des anglismes les plus fréquents (meet, call ...)
 - Détection des doubles négations
+- Détection des accents oubliées sur les majuscules (Étudiant, À venir) 
 - Détection des tournures à éviter (honnêtement, toutefois ...)
 - Ajout d'une page sur les bonnes pratiques illustré
 - Nettoyage du code

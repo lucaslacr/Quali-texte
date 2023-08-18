@@ -105,6 +105,12 @@ textarea {
     line-height: 1.5;
 }
 
+input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
+    border-radius: var(--bordure-arrondie);
+    outline: var(--primaire) 2px solid !important;
+    outline-offset: 2.5px;
+}
+
 /* Partie texte */
 h1 {
     font-size: 32px;
