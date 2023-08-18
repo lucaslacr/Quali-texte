@@ -39,32 +39,39 @@ $sectionGeneral = "<h3>Stats générales</h3>" . "<p> Nombre de caractères : " 
 
 
 // Fonction verbes ternes
-$sectionverbeterne = "";
 function compterEtReleverMots($texte, $mots_a_relever) {
     $texte_minuscules = strtolower($texte);
     $occurrences = array();
+
+    // Prétraitement du texte en remplaçant les caractères spéciaux par des espaces
+    $texte_traité = preg_replace('/[^\p{L}\p{N}]+/u', ' ', $texte_minuscules);
+
     foreach ($mots_a_relever as $mot) {
         $occurrences[$mot] = 0;
     }
+    
     foreach ($mots_a_relever as $mot) {
-        $occurrences[$mot] = substr_count($texte_minuscules, strtolower($mot));
+        $occurrences[$mot] = substr_count($texte_traité, ' ' . strtolower($mot) . ' ');
     }
+
     return $occurrences;
 }
 
-$mots_a_relever = array("faire", "fait", "fais", "vouloir",  "voulu", "est", "aller", "dire", "dis ", "dit ", "mettre", "mis", "met", "fini");
+$mots_a_relever = array("faire", "fait", "fais", "vouloir",  "voulu", "est", "aller", "dire", "dis", "dit", "mettre", "mis", "met", "fini");
 
 $occurrences_des_mots = compterEtReleverMots($texteAnalyser, $mots_a_relever);
 
-foreach ($mots_a_relever as $mot) {
-    if ($occurrences_des_mots[$mot] < 1){
+$sectionverbeterne = "";
 
+foreach ($mots_a_relever as $mot) {
+    if ($occurrences_des_mots[$mot] < 1) {
+        continue;
     } else {
-        $sectionverbeterne = $sectionverbeterne . "Occurrences du mot '" . $mot . "' : " . $occurrences_des_mots[$mot] . "<br>";
+        $sectionverbeterne = $mot . " : (" . $occurrences_des_mots[$mot] . ")<br>" . $sectionverbeterne;
     }
 }
 
-if($sectionverbeterne != "") {
+if ($sectionverbeterne !== "") {
     $sectionverbeterne = "<h3>Verbes ternes</h3><p>" . $sectionverbeterne . "</p>";
 }
 
@@ -94,7 +101,7 @@ foreach ($nombreDeMotsParPhrase as $index => $nombreDeMots) {
     // Mots fréquents
 
 function motsFrequents($texte, $nombre_mots_a_recuperer = 5) {
-    $mots_a_exclure = array("ont", "votre", "vos", "sur", "leur", "nos", "y", "mais", "pourquoi", "devant", "encore", "vers", "leurs", "qu'il", "le", "n'a", "la", "de", "dans", "se", "qu", "en", "re", "sur", "au", "on", "cette", "aux", "ce", "ces", "ses", "sa", "si", "ne", "mon", "ma", "c'est", "à", "son", "que", "l", "où", "c", "m", "t", "s", "là", "sans", "e", "par", "que", "je", "tu", "il", "ils", "elles", "elle", "vous", "es", "tes", "tout", "toutes","toute", "tous", "nous", "qui", "un", "est", "une", "a", "pour", "les", "des", "ou", "aussi", "plus", "comme", "avec", "d", "et", "du", "me", "lui", "entre", "pas", "mes", "sont"); // Ajoutez d'autres mots à exclure ici si nécessaire
+    $mots_a_exclure = array("ont", "d'un", "d'une", "votre", "vos", "sur", "leur", "nos", "y", "mais", "pourquoi", "devant", "encore", "vers", "leurs", "qu'il", "le", "n'a", "la", "de", "dans", "se", "qu", "en", "re", "sur", "au", "on", "cette", "aux", "ce", "ces", "ses", "sa", "si", "ne", "mon", "ma", "c'est", "à", "son", "que", "l", "où", "c", "m", "t", "s", "là", "sans", "e", "par", "que", "je", "tu", "il", "ils", "elles", "elle", "vous", "es", "tes", "tout", "toutes","toute", "tous", "nous", "qui", "un", "est", "une", "a", "pour", "les", "des", "ou", "aussi", "plus", "comme", "avec", "d", "et", "du", "me", "lui", "entre", "pas", "mes", "sont"); // Ajoutez d'autres mots à exclure ici si nécessaire
     $texte_minuscules = strtolower($texte);
     $pattern = '/[^\p{L}\p{N}\']+|\'(?!\w)|(?<!\w)\'/u';
     $mots = preg_split($pattern, $texte_minuscules, -1, PREG_SPLIT_NO_EMPTY);
