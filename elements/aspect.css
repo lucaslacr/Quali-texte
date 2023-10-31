@@ -21,14 +21,15 @@ time, mark, audio, video {
 
 :root {
     --surface-blanc: #fff; 
-    --surface-creme: #f1f3f6;
+    --surface-creme: #ded7d5;
     --bordure-arrondie: 8px;
     --ligne-claire: #c5c5d1;
+    --ligne-foncee:#1d1b1b;
     --texte-titre: #27273a;
     --texte-paragraphe: #333344;
     --texte-rouge: #b80047;
     --texte-vert:#02694c;
-    --primaire: #005eb8;
+    --primaire: #edb200;
 }
 
 body, input, button, textarea {
@@ -52,13 +53,29 @@ input, button, textarea {
 
 button {
     background-color: var(--primaire);
-    color: #fff;
-    border: 0px solid var(--ligne-claire);
+    color: var(--texte-titre);
+    border: 2px solid var(--ligne-foncee);
     border-radius:  var(--bordure-arrondie);
     margin-left: auto;
     cursor: pointer;
-    padding: 8px 22px;
+    padding: 9px 22px;
     width: auto;
+    border-bottom: 5px solid var(--ligne-foncee);
+    transition: 0.3s;
+    
+}
+
+button:hover {
+    background-color: var(--primaire);
+    color: var(--texte-titre);
+    border: 2px solid var(--ligne-foncee);
+    border-radius:  var(--bordure-arrondie);
+    margin-left: auto;
+    cursor: pointer;
+    padding: 9px 22px;
+    width: auto;
+    border-bottom: 2px solid var(--ligne-foncee);
+    margin-bottom: 11px;
 }
 
  /* partie région */
@@ -71,7 +88,7 @@ button {
 
 .banniere {
     background-color: var(--surface-creme);
-    padding: 40px 24px 80px 16px;
+    padding: 48px 24px 80px 16px;
 }
 .conteneur-analyse {
     max-width: 1200px;
@@ -107,7 +124,7 @@ textarea {
 
 input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
     border-radius: var(--bordure-arrondie);
-    outline: var(--primaire) 2px solid !important;
+    outline: var(--ligne-foncee) 2px solid !important;
     outline-offset: 2.5px;
 }
 
@@ -134,6 +151,18 @@ p {
     max-width: 700px;
     line-height: 150%;
     margin-bottom: 24px;
+}
+
+a{
+    text-decoration: none;
+}
+.codesource {
+    font-size: 14px;
+}
+
+.codesource a{
+    color: var(--texte-paragraphe);
+    border-bottom: var(--ligne-foncee) 1px solid;
 }
 
 .rouge {

@@ -4,7 +4,7 @@ if (isset($_POST['texte-a-analyser'])) {
     $texteAnalyser = $_POST['texte-a-analyser'];
     include 'fonctions/traitement.php';
 } else {
-    $affichage = " Les résultats, s'afficherons ici";
+    $affichage = "Les résultats, s'afficherons ici";
 }
 ?>
 <!DOCTYPE html>
@@ -22,8 +22,8 @@ if (isset($_POST['texte-a-analyser'])) {
             <header>
                 <h1>Quali-Texte</h1>
             </header>
-            <p>Tester votre texte, vérifier les rythmes de phrase, les verbes ternes, la longueur de vos phrases,
-             la longueur de vos paragraphes et l'analyse sémantique de votre texte. Objectif optimise votre texte, 
+            <p>Analyser votre texte, vérifier les rythmes de phrase, les verbes ternes, la longueur de vos phrases,
+             la longueur de vos paragraphes et l'analyse sémantique de vos paragraphes. Objectif : optimiser votre contenu, 
              le rendre plus facile à lire et harmonieux.
             </p>
         </div>
@@ -37,12 +37,13 @@ if (isset($_POST['texte-a-analyser'])) {
                                                                                                                                                                 if (isset($_POST['texte-a-analyser'])) {
                                                                                                                                                                     echo $texteAnalyser;
                                                                                                                                                                 } else {
-                                                                                                                                                                    echo "Entrez ici le texte à analyser";
+                                                                                                                                         echo "Entrez ici le texte à analyser";
                                                                                                                                             }
                                                                                                                                                                 ?></textarea>
                 </form>
                 <section class="resultat">
                     <?php echo $affichage ?>
+                    <p class="codesource">Outil ouvert aux contributions <a href="https://github.com/lucaslacr/Quali-texte" rel="nofollow" target="_blank">Voir le code du projet</a></p>
                 </section>
             </div>
         </div>
