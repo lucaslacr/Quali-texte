@@ -35,7 +35,7 @@ if($nombreMoyenDeMotsParParagraphe > 110) {
 } else {
     $nombreMoyenDeMotsParParagraphe = "<span class='vert'>" . $nombreMoyenDeMotsParParagraphe . "</span>";
 }
-$sectionGeneral = "<h3>Stats générales</h3>" . "<p>" . $nombreDeCaracteres . " Caractères<br>" . $nombreDeMots . " Mots <br>" . $tempsLecture . " de temps lecture estimé <br> Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de paragraphes : " . $nombreDeParagraphes . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
+$sectionGeneral = "<h3>Stats générales</h3>" . "<p>" . $nombreDeCaracteres . " Caractères<br>" . $nombreDeMots . " Mots <br>" . $tempsLecture . " de temps lecture estimé <br>" . $nombreDeParagraphes . " Paragraphes <br><br>Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
 
 
 // Fonction verbes ternes
@@ -57,7 +57,7 @@ function compterEtReleverMots($texte, $mots_a_relever) {
     return $occurrences;
 }
 
-$mots_a_relever = array("faire", "fait", "fais", "vouloir",  "voulu", "est", "aller", "dire", "dis", "dit", "mettre", "mis", "met", "fini");
+$mots_a_relever = array("faire", "fait", "fais", "vouloir", "voulu", "est", "aller", "dire", "dis", "dit", "mettre", "mis", "met", "fini");
 
 $occurrences_des_mots = compterEtReleverMots($texteAnalyser, $mots_a_relever);
 
@@ -73,6 +73,43 @@ foreach ($mots_a_relever as $mot) {
 
 if ($sectionverbeterne !== "") {
     $sectionverbeterne = "<h3>Verbes ternes</h3><p>" . $sectionverbeterne . "</p>";
+}
+
+// Fonction formulation maladroite
+function compterEtReleverFormulation($texte, $mots_maladroits) {
+    $texte_minuscules = strtolower($texte);
+    $occurrences = array();
+
+    // Prétraitement du texte en remplaçant les caractères spéciaux par des espaces
+    $texte_traité = preg_replace('/[^\p{L}\p{N}]+/u', ' ', $texte_minuscules);
+
+    foreach ($mots_maladroits as $mot) {
+        $occurrences[$mot] = 0;
+    }
+    
+    foreach ($mots_maladroits as $mot) {
+        $occurrences[$mot] = substr_count($texte_traité, ' ' . strtolower($mot) . ' ');
+    }
+
+    return $occurrences;
+}
+
+$mots_maladroits = array("mais", "toutefois", "normalement", "toutefois", "malheureusement", "en effet", "honnêtement");
+
+$occurrences_des_formulations = compterEtReleverFormulation($texteAnalyser, $mots_maladroits);
+
+$sectionformulation = "";
+
+foreach ($mots_maladroits as $mot) {
+    if ($occurrences_des_formulations[$mot] < 1) {
+        continue;
+    } else {
+        $sectionformulation = $mot . " : (" . $occurrences_des_formulations[$mot] . ")<br>" . $sectionformulation;
+    }
+}
+
+if ($sectionformulation !== "") {
+    $sectionformulation = "<h3>Formulation à éviter</h3><p>" . $sectionformulation . "</p>";
 }
 
 // Fonction mots par phrases
@@ -188,5 +225,5 @@ if ($affichedate != "") {
 $relance = "<button type='submit'>Analyser de nouveau le texte</button>";
 
 // Ajouter les résultats à afficher
-$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $dateabrege . $sectionvoix . $sectionMotParPhrases . $relance;   
+$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $sectionformulation . $dateabrege . $sectionvoix . $sectionMotParPhrases . $relance;   
 ?>

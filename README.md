@@ -20,6 +20,8 @@ C'est davantage un outil pour l'UX Writer ou pour le chargé de contenu qu'une s
 - Détection des dates notées en Abrégé (20/06/2023 pour 20 juin 2023)
 - Détection voix passive (très basic)
 - Longueur de chaque phrase
+- Détection des tournures à éviter (honnêtement, toutefois ...)
+
 
 ## Fonctionnalités à venir
 - Détection des longues énumérations (utiliser des bullet point)
@@ -27,7 +29,6 @@ C'est davantage un outil pour l'UX Writer ou pour le chargé de contenu qu'une s
 - Détection des anglismes les plus fréquents (meet, call ...)
 - Détection des doubles négations
 - Détection des accents oubliées sur les majuscules (Étudiant, À venir) 
-- Détection des tournures à éviter (honnêtement, toutefois ...)
 - Ajout d'une page sur les bonnes pratiques illustré
 - Nettoyage du code
 
