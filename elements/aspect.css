@@ -57,6 +57,7 @@ button {
     border: 2px solid var(--ligne-foncee);
     border-radius:  var(--bordure-arrondie);
     margin-left: auto;
+    margin-right: auto;
     cursor: pointer;
     padding: 9px 22px;
     width: auto;
@@ -70,10 +71,7 @@ button:hover {
     color: var(--texte-titre);
     border: 2px solid var(--ligne-foncee);
     border-radius:  var(--bordure-arrondie);
-    margin-left: auto;
-    cursor: pointer;
     padding: 9px 22px;
-    width: auto;
     border-bottom: 2px solid var(--ligne-foncee);
     margin-bottom: 11px;
 }
@@ -90,14 +88,6 @@ button:hover {
     background-color: var(--surface-creme);
     padding: 48px 24px 80px 16px;
 }
-.conteneur-analyse {
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    margin-top: -48px;
-}
 
 .resultat {
     min-width: 380px;
@@ -106,14 +96,32 @@ button:hover {
     border-radius: var(--bordure-arrondie);
 }
 
-/* partie formulaire */
-form {
-    width: 100%;
-    min-width: 300px;
-    max-width: 1200px;
+.bloc-analyse {
+    display: block;
+    margin-top: -48px;
+}
+
+.bloc-texte {
     background-color: var(--surface-blanc);
     padding: 24px;
     border-radius: var(--bordure-arrondie);
+    width: 100%;
+}
+
+img.loupe {
+    max-width: 200px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* partie formulaire */
+form {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    
 }
 
 textarea {
@@ -156,8 +164,12 @@ p {
 a{
     text-decoration: none;
 }
-.codesource {
+
+p.codesource {
     font-size: 14px;
+    margin: 0 auto;
+    color: var(--texte-paragraphe);
+    padding: 0px 8px 72px 8px;
 }
 
 .codesource a{
@@ -185,9 +197,7 @@ a{
 
 /* Partie responsive */
 @media screen and (max-width: 900px) {
-    .conteneur-analyse {
-        max-width: 1200px;
-        width: 100%;
+    form {
         display: flex;
         flex-direction: row;
         gap: 12px; 
@@ -201,7 +211,14 @@ a{
         border-radius: var(--bordure-arrondie);
     }
     button {
-        width: 100%;
+        width: 88%;
+        position: fixed;
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+    }
+    img.loupe {
+        display: none;
     }
    
 }

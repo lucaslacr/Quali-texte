@@ -22,7 +22,7 @@ $tempsLecture = $nombreDeMots / 300;
 $minutes_decimal = $tempsLecture;
 $partie_entiere = floor($minutes_decimal);
 $decimales = $minutes_decimal - $partie_entiere;
-$secondes = $decimales * 60;
+$secondes = ($decimales * 60) + 2;
 $tempsLecture = $partie_entiere . "min et " . floor($secondes) . "s";
 
 
@@ -35,7 +35,7 @@ if($nombreMoyenDeMotsParParagraphe > 110) {
 } else {
     $nombreMoyenDeMotsParParagraphe = "<span class='vert'>" . $nombreMoyenDeMotsParParagraphe . "</span>";
 }
-$sectionGeneral = "<h3>Stats générales</h3>" . "<p> Nombre de caractères : " . $nombreDeCaracteres . "<br> Nombre de mots : " . $nombreDeMots . "<br>Temps de lecture estimé : " . $tempsLecture . "<br> Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de paragraphes : " . $nombreDeParagraphes . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
+$sectionGeneral = "<h3>Stats générales</h3>" . "<p>" . $nombreDeCaracteres . " Caractères<br>" . $nombreDeMots . " Mots <br>" . $tempsLecture . " de temps lecture estimé <br> Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de paragraphes : " . $nombreDeParagraphes . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
 
 
 // Fonction verbes ternes
@@ -185,7 +185,8 @@ foreach ($tableaudate as $date) {
 if ($affichedate != "") {
     $dateabrege = "<h3>Dates abrégés </h3><p class='rouge' >" . $affichedate . "</p>";
 }
+$relance = "<button type='submit'>Analyser de nouveau le texte</button>";
 
 // Ajouter les résultats à afficher
-$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $dateabrege . $sectionvoix . $sectionMotParPhrases;   
+$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $dateabrege . $sectionvoix . $sectionMotParPhrases . $relance;   
 ?>
