@@ -30,12 +30,12 @@ $tempsLecture = $partie_entiere . "min et " . floor($secondes) . "s";
 $nombreDeParagraphes = preg_match_all('/^\s*$/m', $texteAnalyser, $matches) + 1;
 $nombreMoyenDeMotsParParagraphe = $nombreDeMots / $nombreDeParagraphes;
 $nombreMoyenDeMotsParParagraphe  = round($nombreMoyenDeMotsParParagraphe, 2);
-if($nombreMoyenDeMotsParParagraphe > 110) {
+if($nombreMoyenDeMotsParParagraphe > 100) {
     $nombreMoyenDeMotsParParagraphe = "<span class='rouge'>" . $nombreMoyenDeMotsParParagraphe . "</span>";
 } else {
     $nombreMoyenDeMotsParParagraphe = "<span class='vert'>" . $nombreMoyenDeMotsParParagraphe . "</span>";
 }
-$sectionGeneral = "<h3>Stats générales</h3>" . "<p>" . $nombreDeCaracteres . " Caractères<br>" . $nombreDeMots . " Mots <br>" . $tempsLecture . " de temps lecture estimé <br>" . $nombreDeParagraphes . " Paragraphes <br><br>Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
+$sectionGeneral = "<h3>Stats générales</h3>" . "<p>" . $nombreDeCaracteres . " Caractères<br>" . $nombreDeMots . " Mots <br>" . $nombreDeParagraphes . " Paragraphes<br>" . $tempsLecture . " de temps lecture estimé <br><br>Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
 
 
 // Fonction verbes ternes
@@ -72,7 +72,7 @@ foreach ($mots_a_relever as $mot) {
 }
 
 if ($sectionverbeterne !== "") {
-    $sectionverbeterne = "<h3>Verbes ternes</h3><p>" . $sectionverbeterne . "</p>";
+    $sectionverbeterne = "<h3>Verbes ternes</h3><p class='rouge'>" . $sectionverbeterne . "</p>";
 }
 
 // Fonction formulation maladroite
@@ -94,7 +94,7 @@ function compterEtReleverFormulation($texte, $mots_maladroits) {
     return $occurrences;
 }
 
-$mots_maladroits = array("mais", "toutefois", "normalement", "toutefois", "malheureusement", "en effet", "honnêtement");
+$mots_maladroits = array("mais", "toutefois", "normalement", "toutefois", "malheureusement", "en effet", "honnêtement", "sur paris", "en soi", "de base", "du coup", "je me permet", "Je pense que", "en gros", "on", "que");
 
 $occurrences_des_formulations = compterEtReleverFormulation($texteAnalyser, $mots_maladroits);
 
@@ -109,7 +109,7 @@ foreach ($mots_maladroits as $mot) {
 }
 
 if ($sectionformulation !== "") {
-    $sectionformulation = "<h3>Formulation à éviter</h3><p>" . $sectionformulation . "</p>";
+    $sectionformulation = "<h3>Formulation à éviter</h3><p class='rouge'>" . $sectionformulation . "</p>";
 }
 
 // Fonction mots par phrases

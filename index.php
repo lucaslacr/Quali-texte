@@ -33,7 +33,13 @@ if (isset($_POST['texte-a-analyser'])) {
             <section class="bloc-analyse">
             <form action="#" method="post">
                     <section class="bloc-texte">
-                        <textarea maxlength="5000" minlength="5" rows="18" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser"><?php echo $texteAnalyser ?></textarea>
+                        <textarea maxlength="5000" minlength="5" rows="18" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser"><?php 
+                        if (isset($texteAnalyser)) {
+                            echo $texteAnalyser;
+                        } else {
+                            echo "Saisissez le texte à analyser";
+                        }
+                         ?></textarea>
                     </section>
                     <section class="resultat">
                         <?php echo $affichage ?>
