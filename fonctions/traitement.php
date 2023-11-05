@@ -94,7 +94,7 @@ function compterEtReleverFormulation($texte, $mots_maladroits) {
     return $occurrences;
 }
 
-$mots_maladroits = array("mais", "toutefois", "normalement", "toutefois", "malheureusement", "en effet", "honnêtement", "sur paris", "en soi", "de base", "du coup", "je me permet", "Je pense que", "en gros", "on", "que");
+$mots_maladroits = array("mais", "toutefois", "normalement", "toutefois", "malheureusement", "en effet", "honnêtement", "sur paris", "en soi", "de base", "du coup", "à la base", "je me permet", "Je pense que", "en gros", "on", "que");
 
 $occurrences_des_formulations = compterEtReleverFormulation($texteAnalyser, $mots_maladroits);
 
@@ -222,8 +222,21 @@ foreach ($tableaudate as $date) {
 if ($affichedate != "") {
     $dateabrege = "<h3>Dates abrégés </h3><p class='rouge' >" . $affichedate . "</p>";
 }
+
+// Détection des abréviation 
+
+preg_match_all('/[A-Z]{2,}/', $texteAnalyser, $matches);
+
+// Récupérer les abréviations trouvées
+$listedesabréviation = implode(', ', $matches[0]);
+
+$afficherabreviation ="";
+if ($listedesabréviation != "") {
+    $afficherabreviation = "<h3>Abréviation </h3><p class='rouge' >" . $listedesabréviation . "</p>";
+}
+
 $relance = "<button type='submit'>Analyser de nouveau le texte</button>";
 
 // Ajouter les résultats à afficher
-$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $sectionformulation . $dateabrege . $sectionvoix . $sectionMotParPhrases . $relance;   
+$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $sectionformulation . $dateabrege . $afficherabreviation . $sectionvoix . $sectionMotParPhrases . $relance;   
 ?>

@@ -21,13 +21,14 @@ C'est davantage un outil pour l'UX Writer ou pour le chargé de contenu qu'une s
 - Détection voix passive (très basic)
 - Longueur de chaque phrase
 - Détection des tournures à éviter (honnêtement, toutefois ...)
+- Détection des abréviations
 
 
 ## Fonctionnalités à venir
 - Détection des longues énumérations (utiliser des bullet point)
-- Détection des abréviations
 - Détection des anglismes les plus fréquents (meet, call ...)
 - Détection des doubles négations
+- Détection des adverbes
 - Détection des accents oubliées sur les majuscules (Étudiant, À venir) 
 - Ajout d'une page sur les bonnes pratiques illustré
 - Nettoyage du code

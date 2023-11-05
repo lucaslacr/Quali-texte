@@ -14,6 +14,7 @@ if (isset($_POST['texte-a-analyser'])) {
     <title>Quali Texte, analyse de texte pour orienté UX Writing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="elements/aspect.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./elements/favicon.png" />
 </head>
 
 <body>
@@ -23,7 +24,7 @@ if (isset($_POST['texte-a-analyser'])) {
                 <h1>Quali-Texte</h1>
             </header>
             <p>Analyser votre texte, vérifier les rythmes de phrase, les verbes ternes, la longueur de vos phrases,
-                la longueur de vos paragraphes et l'analyse sémantique de vos paragraphes. Objectif : optimiser votre contenu,
+                la taille de vos paragraphes et l'analyse sémantique de vos paragraphes. Objectif : optimiser votre contenu,
                 le rendre plus facile à lire et harmonieux.
             </p>
         </div>
