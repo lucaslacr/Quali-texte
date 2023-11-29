@@ -38,6 +38,61 @@ if($nombreMoyenDeMotsParParagraphe > 100) {
 $sectionGeneral = "<h3>Stats générales</h3>" . "<p>" . $nombreDeCaracteres . " Caractères<br>" . $nombreDeMots . " Mots <br>" . $nombreDeParagraphes . " Paragraphes<br>" . $tempsLecture . " de temps lecture estimé <br><br>Nombre moyen de mots par phrase : " . $nombreMoyenDeMotsParPhrase . "<br> Nombre de mots moyens par paragraphe : " . $nombreMoyenDeMotsParParagraphe . "</p>";
 
 
+// Teste de Fle
+
+function calculateFleschKincaid($text) {
+    $wordCount = str_word_count($text);
+
+    $sentenceCount = preg_match_all('/[.!?]/', $text, $matches);
+     
+    if ($sentenceCount == 0) {
+        $sentenceCount = 1;
+    }
+
+    $syllableCount = 0;
+    $words = explode(' ', $text);
+    foreach ($words as $word) {
+        $syllableCount += countSyllables($word);
+    }
+
+
+    $score = 206.835 - (1.015 * ($wordCount / $sentenceCount)) - (84.6 * ($syllableCount / $wordCount));
+
+    return $score;
+}
+
+function countSyllables($word) {
+    $word = strtolower($word);
+    $vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
+    $syllableCount = 0;
+    $lastCharWasVowel = false;
+
+    for ($i = 0; $i < strlen($word); $i++) {
+        $char = $word[$i];
+        if (in_array($char, $vowels)) {
+            if (!$lastCharWasVowel) {
+                $syllableCount++;
+                $lastCharWasVowel = true;
+            }
+        } else {
+            $lastCharWasVowel = false;
+        }
+    }
+
+    return $syllableCount;
+}
+
+// Test avec une chaîne de texte
+
+$score = calculateFleschKincaid($texteAnalyser);
+if($score <= 50){
+    $afficherfk = "<p class='rouge'>" . round($score, 2) . " au test de Flesch-Kincaid<p>" ;
+
+} else {
+   $afficherfk = "<p><span class='vert'>" .  round($score, 2) . "</span> au test de Flesch-Kincaid</p>" ;
+}
+
+
 // Fonction verbes ternes
 function compterEtReleverMots($texte, $mots_a_relever) {
     $texte_minuscules = strtolower($texte);
@@ -133,8 +188,10 @@ foreach ($nombreDeMotsParPhrase as $index => $nombreDeMots) {
     } else {
      $sectionMotParPhrases = $sectionMotParPhrases . "Phrase " . ($index + 1) . ": " . $nombreDeMots . " mots <br>" ;
     }
-   
 }
+
+$sectionMotParPhrases = "<p>" . $sectionMotParPhrases . "</p>";
+
     // Mots fréquents
 
 function motsFrequents($texte, $nombre_mots_a_recuperer = 5) {
@@ -238,5 +295,5 @@ if ($listedesabréviation != "") {
 $relance = "<button type='submit'>Analyser de nouveau le texte</button>";
 
 // Ajouter les résultats à afficher
-$affichage = $sectionGeneral . $sectionsemantique . $sectionverbeterne . $sectionformulation . $dateabrege . $afficherabreviation . $sectionvoix . $sectionMotParPhrases . $relance;   
+$affichage = $sectionGeneral . $afficherfk . $sectionsemantique . $sectionverbeterne . $sectionformulation . $dateabrege . $afficherabreviation . $sectionvoix . $sectionMotParPhrases . $relance . "<br>";   
 ?>

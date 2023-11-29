@@ -22,6 +22,7 @@ C'est davantage un outil pour l'UX Writer ou pour le chargé de contenu qu'une s
 - Longueur de chaque phrase
 - Détection des tournures à éviter (honnêtement, toutefois ...)
 - Détection des abréviations
+- Teste de Flesch-Kincaid
 
 
 ## Fonctionnalités à venir
