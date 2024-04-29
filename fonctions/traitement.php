@@ -55,7 +55,6 @@ function calculateFleschKincaid($text) {
         $syllableCount += countSyllables($word);
     }
 
-
     $score = 206.835 - (1.015 * ($wordCount / $sentenceCount)) - (84.6 * ($syllableCount / $wordCount));
 
     return $score;
@@ -130,12 +129,103 @@ if ($sectionverbeterne !== "") {
     $sectionverbeterne = "<h3>Verbes ternes</h3><p class='rouge'>" . $sectionverbeterne . "</p>";
 }
 
+// Fonction adverbe ou adjectif
+function compterEtReleverAdverbe($texte, $adverbe) {
+    $texte_minuscules = strtolower($texte);
+    $occurrences = array();
+
+    // Prétraitement du texte en remplaçant les caractères spéciaux par des espaces
+    $texte_traité = preg_replace('/[^\p{L}\p{N}]+/u', ' ', $texte_minuscules);
+
+    foreach ($adverbe as $mot) {
+        $occurrences[$mot] = 0;
+    }
+    
+    foreach ($adverbe as $mot) {
+        $occurrences[$mot] = substr_count($texte_traité, ' ' . strtolower($mot) . ' ');
+    }
+
+    return $occurrences;
+}
+
+$adverbe = array("certainement", "très", "simplement", "vraiment", "couramment", "également", "assez", "autrement", "assurément", "tellement", "idéalement", "seulement", "uniquement", "apparemment", "évidement", "probablement", "clairement", "complètement", "naturellement", "réellement", "tranquillement", "rapidement");
+
+$occurrences_des_adverbes = compterEtReleverAdverbe($texteAnalyser, $adverbe);
+
+$sectionadverbe = "";
+
+foreach ($adverbe as $mot) {
+    if ($occurrences_des_adverbes[$mot] < 1) {
+        continue;
+    } else {
+        $sectionadverbe = $mot . " : (" . $occurrences_des_adverbes[$mot] . ")<br>" . $sectionadverbe;
+    }
+}
+
+if ($sectionadverbe !== "") {
+    $sectionadverbe = "<h3>Adverbes</h3><p class='rouge'>" . $sectionadverbe . "</p>";
+}
+
+
+function detecterEnumerations($texteAnalyser) {
+    // Initialisation des variables
+    $ennumerationrequise = "";
+
+    // Séparation du texte en phrases
+    $phrases = preg_split('/[.!?]+/', $texteAnalyser, -1, PREG_SPLIT_NO_EMPTY);
+
+    // Parcourir chaque phrase
+    foreach ($phrases as $phrase) {
+        // Rechercher des énumérations dans la phrase
+        preg_match_all('/([\w\s]+(?:\s*,\s*[\w\s]+){2,})/', $phrase, $enumerations);
+
+        // Si une énumération est trouvée avec plus de 3 éléments
+        if (isset($enumerations[0]) && count($enumerations[0]) > 0) {
+            // Ajouter la phrase entière à la variable $ennumerationrequise
+            $ennumerationrequise .= $phrase . ". <br>";
+        }
+    }
+
+    // Retourner la variable contenant les phrases avec des énumérations de plus de 3 éléments
+    return $ennumerationrequise;
+}
+
+// Appel de la fonction pour détecter les énumérations de plus de 3 éléments
+$ennumerationrequise = detecterEnumerations($texteAnalyser);
+
+if ($ennumerationrequise != "") {
+    $sectionsenumeration = "<h3>Énumération longue sans liste à puces</h3><p class='rouge'>" . $ennumerationrequise  ."</p>";
+} else {
+    $sectionsenumeration = "";
+}
+ 
+//double négation
+function detecterDoubleNegations($texteAnalyser) {
+    $doublenegation = "";
+    $phrases = preg_split('/[.!?]+/', $texteAnalyser, -1, PREG_SPLIT_NO_EMPTY);
+    foreach ($phrases as $phrase) {
+        preg_match('/\b(?:pas|point|aucun)\s+\b(?:ne|n[\'eaiou])\s+(?:pas|point|aucun)\b/i', $phrase, $negations);
+        if (isset($negations[0]) && !empty($negations[0])) {
+            $doublenegation .= $phrase . ". <br>";
+        }
+    }
+    return $doublenegation;
+}
+
+$doublenegation = detecterDoubleNegations($texteAnalyser);
+
+
+if ($doublenegation != "") {
+    $sectionsnegation = "<h3>Double négation</h3><p class='rouge'>" . $doublenegation  ."</p>";
+} else {
+    $sectionsnegation = "";
+}
+
 // Fonction formulation maladroite
 function compterEtReleverFormulation($texte, $mots_maladroits) {
     $texte_minuscules = strtolower($texte);
     $occurrences = array();
 
-    // Prétraitement du texte en remplaçant les caractères spéciaux par des espaces
     $texte_traité = preg_replace('/[^\p{L}\p{N}]+/u', ' ', $texte_minuscules);
 
     foreach ($mots_maladroits as $mot) {
@@ -149,7 +239,7 @@ function compterEtReleverFormulation($texte, $mots_maladroits) {
     return $occurrences;
 }
 
-$mots_maladroits = array("mais", "toutefois", "normalement", "toutefois", "malheureusement", "en effet", "honnêtement", "sur paris", "en soi", "de base", "du coup", "à la base", "je me permet", "Je pense que", "en gros", "on", "que");
+$mots_maladroits = array("mais", "toutefois", "normalement", "toutefois", "malheureusement", "en effet", "honnêtement", "sur paris", "en soi", "de base", "hélas", "du coup", "à la base", "je me permet", "Je pense que", "en gros", "on", "que");
 
 $occurrences_des_formulations = compterEtReleverFormulation($texteAnalyser, $mots_maladroits);
 
@@ -251,7 +341,7 @@ $sectionvoix = "";
 
 
 if ($sectionpasive['nombre_phrases_passives'] < 1) {
-    $sectionvoix = "<p class='vert' >Il ne semble pas y avoir de phrases à la voix passive</p>";
+    $sectionvoix = "";
 } else {
     $sectionvoix = "Nombre de phrases passives : " . $sectionpasive['nombre_phrases_passives'] . "<br>" . "Phrases passives : <br>";
     foreach ($sectionpasive['phrases_passives'] as $phrase) {
@@ -259,7 +349,12 @@ if ($sectionpasive['nombre_phrases_passives'] < 1) {
     }
     $sectionvoix = "<p class='rouge' >" . $sectionvoix . "</p>";
 };
-$sectionvoix = "<h3>Détection voix passive</h3>" . $sectionvoix ;
+
+if ($sectionvoix !== "") {
+    $sectionvoix = "<h3>Détection voix passive</h3>" . $sectionvoix ;
+} else {
+    $sectionvoix = "";
+}
 
 
 // Détection des dates abrégées
@@ -295,5 +390,5 @@ if ($listedesabréviation != "") {
 $relance = "<button type='submit'>Analyser de nouveau le texte</button>";
 
 // Ajouter les résultats à afficher
-$affichage = $sectionGeneral . $afficherfk . $sectionsemantique . $sectionverbeterne . $sectionformulation . $dateabrege . $afficherabreviation . $sectionvoix . $sectionMotParPhrases . $relance . "<br>";   
+$affichage = $sectionGeneral . $afficherfk . $sectionsemantique . $sectionsnegation . $sectionverbeterne .  $sectionadverbe . $sectionformulation . $sectionsenumeration . $dateabrege . $afficherabreviation . $sectionvoix . $sectionMotParPhrases . $relance . "<br>";   
 ?>

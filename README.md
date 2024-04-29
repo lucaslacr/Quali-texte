@@ -23,15 +23,15 @@ C'est davantage un outil pour l'UX Writer ou pour le chargé de contenu qu'une s
 - Détection des tournures à éviter (honnêtement, toutefois ...)
 - Détection des abréviations
 - Teste de Flesch-Kincaid
-
+- Détection des longues énumérations (utiliser des bullet point)
+- Détection des adverbes (limité)
+- Détection des doubles négations (limité)
 
 ## Fonctionnalités à venir
-- Détection des longues énumérations (utiliser des bullet point)
 - Détection des anglismes les plus fréquents (meet, call ...)
-- Détection des doubles négations
-- Détection des adverbes
 - Détection des accents oubliées sur les majuscules (Étudiant, À venir) 
 - Ajout d'une page sur les bonnes pratiques illustré
+- Visualisation des erreurs dans le texte
 - Nettoyage du code
 
 ### Projet ouvert aux contributions
