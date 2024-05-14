@@ -15,6 +15,25 @@ if (isset($_POST['texte-a-analyser'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="elements/aspect.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="./elements/favicon.png" />
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u = "//audience.lucaslacroix.com/";
+            _paq.push(['setTrackerUrl', u + 'matomo.php']);
+            _paq.push(['setSiteId', '8']);
+            var d = document,
+                g = d.createElement('script'),
+                s = d.getElementsByTagName('script')[0];
+            g.async = true;
+            g.src = u + 'matomo.js';
+            s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
 </head>
 
 <body>
@@ -32,20 +51,20 @@ if (isset($_POST['texte-a-analyser'])) {
     <main>
         <section class="conteneur">
             <section class="bloc-analyse">
-            <form action="#" method="post">
+                <form action="#" method="post">
                     <section class="bloc-texte">
-                        <textarea maxlength="5000" minlength="5" rows="18" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser"><?php 
-                        if (isset($texteAnalyser)) {
-                            echo $texteAnalyser;
-                        } else {
-                            echo "Saisissez le texte à analyser";
-                        }
-                         ?></textarea>
+                        <textarea maxlength="5000" minlength="5" rows="18" aria-label="Entrez le texte à analyser" id="texte-a-analyser" name="texte-a-analyser"><?php
+                                                                                                                                                                    if (isset($texteAnalyser)) {
+                                                                                                                                                                        echo $texteAnalyser;
+                                                                                                                                                                    } else {
+                                                                                                                                                                        echo "Saisissez le texte à analyser";
+                                                                                                                                                                    }
+                                                                                                                                                                    ?></textarea>
                     </section>
                     <section class="resultat">
                         <?php echo $affichage ?>
                     </section>
-            </form>
+                </form>
             </section>
             <p class="codesource">Outil ouvert aux contributions <a href="https://github.com/lucaslacr/Quali-texte" rel="nofollow" target="_blank">Voir le code du projet</a></p>
         </section>

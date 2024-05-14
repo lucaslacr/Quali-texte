@@ -148,7 +148,7 @@ function compterEtReleverAdverbe($texte, $adverbe) {
     return $occurrences;
 }
 
-$adverbe = array("certainement", "très", "simplement", "vraiment", "couramment", "également", "assez", "autrement", "assurément", "tellement", "idéalement", "seulement", "uniquement", "apparemment", "évidement", "probablement", "clairement", "complètement", "naturellement", "réellement", "tranquillement", "rapidement");
+$adverbe = array("certainement", "simplement", "vraiment", "couramment", "également", "autrement", "assurément", "tellement", "idéalement", "seulement", "uniquement", "apparemment", "évidement", "probablement", "clairement", "complètement", "naturellement", "réellement", "tranquillement", "rapidement");
 
 $occurrences_des_adverbes = compterEtReleverAdverbe($texteAnalyser, $adverbe);
 
